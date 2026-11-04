@@ -1,0 +1,52 @@
+{
+  "mode": "llm",
+  "stamp": "20261104-115105",
+  "total_sec": 18.9,
+  "pass_rate": 0.6666666666666666,
+  "avg_cost": 0.004576044666666667,
+  "p50_ms": 6726,
+  "rows": [
+    {
+      "id": "c01",
+      "desc": "数据分析岗 × 数据背景简历（应高分）",
+      "must_ok": true,
+      "gap_ok": true,
+      "clean_ok": true,
+      "score_ok": true,
+      "refuse_ok": true,
+      "passed": true,
+      "score": 64,
+      "cost": 0.004495862000000001,
+      "tokens": 3118,
+      "ms": 9342
+    },
+    {
+      "id": "c09",
+      "desc": "超长 JD × 数据简历（不能丢埋在噪声里的条件）",
+      "must_ok": true,
+      "gap_ok": true,
+      "clean_ok": true,
+      "score_ok": true,
+      "refuse_ok": true,
+      "passed": true,
+      "score": 88,
+      "cost": 0.00743512,
+      "tokens": 6487,
+      "ms": 6726
+    },
+    {
+      "id": "c12",
+      "desc": "数据分析岗 × 半匹配简历（技能够、无实习、缺到岗）",
+      "must_ok": true,
+      "gap_ok": true,
+      "clean_ok": true,
+      "score_ok": false,
+      "refuse_ok": false,
+      "passed": false,
+      "score": 35,
+      "cost": 0.001797152,
+      "tokens": 1368,
+      "ms": 2864
+    }
+  ]
+}

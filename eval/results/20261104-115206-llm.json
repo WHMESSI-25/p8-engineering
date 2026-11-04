@@ -1,0 +1,24 @@
+{
+  "mode": "llm",
+  "stamp": "20261104-115206",
+  "total_sec": 10.4,
+  "pass_rate": 1.0,
+  "avg_cost": 0.00504952,
+  "p50_ms": 10391,
+  "rows": [
+    {
+      "id": "c12",
+      "desc": "数据分析岗 × 半匹配简历（技能够、无实习、缺到岗）",
+      "must_ok": true,
+      "gap_ok": true,
+      "clean_ok": true,
+      "score_ok": true,
+      "refuse_ok": true,
+      "passed": true,
+      "score": 52,
+      "cost": 0.00504952,
+      "tokens": 3350,
+      "ms": 10391
+    }
+  ]
+}

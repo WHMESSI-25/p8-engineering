@@ -342,6 +342,43 @@
         45
       ],
       "refuse": true
+    },
+    {
+      "id": "c12",
+      "desc": "数据分析岗 × 半匹配简历（技能够、无实习、缺到岗）",
+      "jd": "data/jd/1.md",
+      "resume": "data/resume3.md",
+      "expect_must": [
+        [
+          "本科",
+          "学历"
+        ],
+        [
+          "SQL"
+        ],
+        [
+          "Python"
+        ],
+        [
+          "到岗",
+          "实习期"
+        ]
+      ],
+      "expect_plus": [],
+      "expect_gaps": [
+        [
+          "Python"
+        ],
+        [
+          "Tableau",
+          "BI"
+        ]
+      ],
+      "score_range": [
+        45,
+        80
+      ],
+      "refuse": false
     }
   ]
 }
