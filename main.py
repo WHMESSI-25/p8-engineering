@@ -20,6 +20,40 @@ from state import fold_job, new_state
 ROOT = Path(__file__).resolve().parent
 RUNS = ROOT / "runs"
 
+# DeepSeek 单价（美元/百万 token），与 docs/指标口径.md 保持一致
+PRICE_IN, PRICE_OUT, FX = 0.14 / 1_000_000, 0.28 / 1_000_000, 7.1
+
+
+def _cost(state: dict) -> tuple[float, int]:
+    tin = sum(t.get("tokens_in", 0) for t in state.get("trace", []))
+    tout = sum(t.get("tokens_out", 0) for t in state.get("trace", []))
+    return (tin * PRICE_IN + tout * PRICE_OUT) * FX, tin + tout
+
+
+def _replay(path: str) -> None:
+    """回放一次历史运行：不发任何请求，只看当时的完整状态"""
+    st = json.loads(Path(path).read_text(encoding="utf-8"))
+    print(f"回放：{path}")
+    print(f"状态={st.get('status')}  run_id={st.get('run_id')}")
+    print(f"解析：{len(st.get('job', {}).get('must', []))} 条硬性 / "
+          f"{len(st.get('job', {}).get('plus', []))} 条加分")
+    m = st.get("match", {})
+    print(f"匹配：{m.get('score')} 分（job_rev={m.get('job_rev')}）")
+    for b in m.get("breakdown", []):
+        print(f"  [{b['level']}] {b['item'][:30]} ← {b.get('evidence', {}).get('sid', '')}")
+    print("缺口：")
+    for g in m.get("gaps", []):
+        print(f"  ({g['severity']}/{g['status']}) {g['desc'][:40]}")
+    a = st.get("advice", {})
+    print(f"改写 {len(a.get('rewrites', []))} 条 / 面试题 {len(a.get('questions', []))} 道")
+    print("各节点耗时：")
+    for t in st.get("trace", []):
+        print(f"  {t['step']:<8} {t.get('ms', 0):>6}ms tokens={t.get('tokens', 0)}")
+    if st.get("errors"):
+        print("错误记录：")
+        for e in st["errors"]:
+            print(f"  {e['type']}：{e['detail'][:50]}")
+
 
 def _show_pause(values: dict, node: str) -> None:
     if node == "gate1":
@@ -107,12 +141,19 @@ def _apply_reject(app, config, values, ids: list[str]) -> None:
 
 def main() -> None:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--jd", required=True)
-    ap.add_argument("--resume", required=True)
+    ap.add_argument("--jd")
+    ap.add_argument("--resume")
     ap.add_argument("--auto", action="store_true", help="自动接受两个暂停点")
     ap.add_argument("--add-must", default=None, help="在人审点 1 追加一条硬性条件（测试用）")
     ap.add_argument("--reject", default="", help="在人审点 2 划掉的缺口编号，逗号分隔（测试用）")
+    ap.add_argument("--replay", default=None, help="回放一次历史运行（runs/*.json），不发请求")
     args = ap.parse_args()
+
+    if args.replay:
+        _replay(args.replay)
+        return
+    if not args.jd or not args.resume:
+        ap.error("跑一次任务需要同时给 --jd 和 --resume；只回放历史请用 --replay")
 
     jd = Path(args.jd).read_text(encoding="utf-8")
     resume = Path(args.resume).read_text(encoding="utf-8")
@@ -166,6 +207,8 @@ def main() -> None:
         print("面试题：")
         for q in a["questions"][:5]:
             print(f"  - {q['q']}")
+    cost, tokens = _cost(final)
+    print(f"本次消耗：{tokens} tokens ≈ ¥{cost:.4f}")
     if final.get("errors"):
         print(f"错误记录：{len(final['errors'])} 条")
     print("=" * 60)

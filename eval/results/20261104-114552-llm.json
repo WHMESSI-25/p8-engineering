@@ -1,0 +1,24 @@
+{
+  "mode": "llm",
+  "stamp": "20261104-114552",
+  "total_sec": 2.8,
+  "pass_rate": 1.0,
+  "avg_cost": 0.0019194140000000001,
+  "p50_ms": 2805,
+  "rows": [
+    {
+      "id": "c11",
+      "desc": "高级岗（3 年门槛）× 学生简历（年限应判缺失）",
+      "must_ok": true,
+      "gap_ok": true,
+      "clean_ok": true,
+      "score_ok": true,
+      "refuse_ok": true,
+      "passed": true,
+      "score": 28,
+      "cost": 0.0019194140000000001,
+      "tokens": 1469,
+      "ms": 2805
+    }
+  ]
+}

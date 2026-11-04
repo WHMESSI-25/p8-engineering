@@ -1,0 +1,34 @@
+name: 真模型质量评估（手动触发，会消耗 token）
+
+on:
+  workflow_dispatch:
+    inputs:
+      cases:
+        description: "只跑指定 case（空格分隔，留空=全部）"
+        required: false
+        default: ""
+
+jobs:
+  evaluate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: 安装依赖
+        run: pip install -r requirements.txt
+      - name: 跑评估
+        env:
+          LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
+        run: |
+          if [ -z "$LLM_API_KEY" ]; then
+            echo "::error::没有配置 LLM_API_KEY secret，无法跑真模型评估"
+            exit 1
+          fi
+          python evaluate.py ${{ github.event.inputs.cases }}
+      - name: 上传评估报告
+        uses: actions/upload-artifact@v4
+        with:
+          name: eval-report
+          path: eval/results/*.json

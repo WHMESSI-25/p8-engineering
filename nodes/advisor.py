@@ -103,6 +103,7 @@ def run_llm(state: State) -> dict:
         "trace": append(state, "trace", {
             "step": "advisor", "ms": int((time.time() - t0) * 1000),
             "tokens": usage["prompt"] + usage["completion"],
+            "tokens_in": usage["prompt"], "tokens_out": usage["completion"],
             "note": f"改写={len(rewrites)} 题={len(questions)} 动作={len(actions)}",
         }),
     }
@@ -148,4 +149,7 @@ def run_stub(state: State) -> dict:
 
 
 def run(state: State) -> dict:
-    return run_stub(state) if os.environ.get("P7_STUB") == "1" else run_llm(state)
+    """分级开关：P7_STUB_ADVISOR=1 单独让本节点走规则版，P7_STUB=1 则全部走规则"""
+    if os.environ.get("P7_STUB") == "1" or os.environ.get("P7_STUB_ADVISOR") == "1":
+        return run_stub(state)
+    return run_llm(state)

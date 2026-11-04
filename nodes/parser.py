@@ -156,6 +156,7 @@ def run_llm(state: State) -> dict:
         "trace": append(state, "trace", {
             "step": "parser", "ms": int((time.time() - t0) * 1000),
             "tokens": usage["prompt"] + usage["completion"],
+            "tokens_in": usage["prompt"], "tokens_out": usage["completion"],
             "note": f"候选行={len(cands)} must={len(must)} plus={len(plus)} 句子={len(sentences)}"
                     + ("（语义空转）" if job["semantic_invalid"] else ""),
         }),
@@ -199,4 +200,7 @@ def run_stub(state: State) -> dict:
 
 
 def run(state: State) -> dict:
-    return run_stub(state) if os.environ.get("P7_STUB") == "1" else run_llm(state)
+    """分级开关：P7_STUB_PARSER=1 单独让本节点走规则版，P7_STUB=1 则全部走规则"""
+    if os.environ.get("P7_STUB") == "1" or os.environ.get("P7_STUB_PARSER") == "1":
+        return run_stub(state)
+    return run_llm(state)

@@ -1,0 +1,24 @@
+{
+  "mode": "llm",
+  "stamp": "20261104-114445",
+  "total_sec": 8.1,
+  "pass_rate": 1.0,
+  "avg_cost": 0.004243386,
+  "p50_ms": 8113,
+  "rows": [
+    {
+      "id": "c01",
+      "desc": "数据分析岗 × 数据背景简历（应高分）",
+      "must_ok": true,
+      "gap_ok": true,
+      "clean_ok": true,
+      "score_ok": true,
+      "refuse_ok": true,
+      "passed": true,
+      "score": 64,
+      "cost": 0.004243386,
+      "tokens": 2991,
+      "ms": 8113
+    }
+  ]
+}

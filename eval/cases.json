@@ -1,0 +1,347 @@
+{
+  "_说明": "P8 评估集：5 份 JD × 2 份简历 = 10 个 case。expect_* 用关键词组表示，命中任意一个关键词即算找到。",
+  "_判据": "四项全中记 1 分：must 抽全 / 缺口不遗漏 / 零编造 / 分数落区间",
+  "cases": [
+    {
+      "id": "c01",
+      "desc": "数据分析岗 × 数据背景简历（应高分）",
+      "jd": "data/jd/1.md",
+      "resume": "data/resume.md",
+      "expect_must": [
+        [
+          "本科",
+          "学历"
+        ],
+        [
+          "SQL"
+        ],
+        [
+          "Python"
+        ],
+        [
+          "到岗",
+          "实习期"
+        ]
+      ],
+      "expect_plus": [
+        [
+          "Tableau",
+          "BI"
+        ],
+        [
+          "电商"
+        ],
+        [
+          "竞赛"
+        ]
+      ],
+      "expect_gaps": [
+        [
+          "到岗",
+          "实习期"
+        ]
+      ],
+      "score_range": [
+        55,
+        85
+      ],
+      "refuse": false
+    },
+    {
+      "id": "c02",
+      "desc": "数据分析岗 × 文科简历（技能全缺，应劝退）",
+      "jd": "data/jd/1.md",
+      "resume": "data/resume2.md",
+      "expect_must": [
+        [
+          "本科",
+          "学历"
+        ],
+        [
+          "SQL"
+        ],
+        [
+          "Python"
+        ],
+        [
+          "到岗",
+          "实习期"
+        ]
+      ],
+      "expect_plus": [],
+      "expect_gaps": [
+        [
+          "SQL"
+        ],
+        [
+          "Python"
+        ]
+      ],
+      "score_range": [
+        0,
+        30
+      ],
+      "refuse": true
+    },
+    {
+      "id": "c03",
+      "desc": "后端开发岗 × 数据简历（技术栈不符，应劝退）",
+      "jd": "data/jd/2.md",
+      "resume": "data/resume.md",
+      "expect_must": [
+        [
+          "本科",
+          "学历"
+        ],
+        [
+          "Java"
+        ],
+        [
+          "MySQL"
+        ],
+        [
+          "Redis"
+        ],
+        [
+          "Linux",
+          "Docker"
+        ]
+      ],
+      "expect_plus": [],
+      "expect_gaps": [
+        [
+          "Java"
+        ],
+        [
+          "Redis"
+        ]
+      ],
+      "score_range": [
+        0,
+        30
+      ],
+      "refuse": true
+    },
+    {
+      "id": "c04",
+      "desc": "后端开发岗 × 文科简历（完全不沾，应劝退）",
+      "jd": "data/jd/2.md",
+      "resume": "data/resume2.md",
+      "expect_must": [
+        [
+          "Java"
+        ],
+        [
+          "MySQL"
+        ]
+      ],
+      "expect_plus": [],
+      "expect_gaps": [
+        [
+          "Java"
+        ]
+      ],
+      "score_range": [
+        0,
+        20
+      ],
+      "refuse": true
+    },
+    {
+      "id": "c05",
+      "desc": "建筑设计岗 × 数据简历（跨行，应劝退）",
+      "jd": "data/jd/3.md",
+      "resume": "data/resume.md",
+      "expect_must": [
+        [
+          "建筑",
+          "学历"
+        ],
+        [
+          "AutoCAD",
+          "SketchUp"
+        ],
+        [
+          "手绘"
+        ]
+      ],
+      "expect_plus": [],
+      "expect_gaps": [
+        [
+          "建筑"
+        ],
+        [
+          "AutoCAD"
+        ]
+      ],
+      "score_range": [
+        0,
+        20
+      ],
+      "refuse": true
+    },
+    {
+      "id": "c06",
+      "desc": "建筑设计岗 × 文科简历（跨行，应劝退）",
+      "jd": "data/jd/3.md",
+      "resume": "data/resume2.md",
+      "expect_must": [
+        [
+          "建筑"
+        ],
+        [
+          "AutoCAD"
+        ]
+      ],
+      "expect_plus": [],
+      "expect_gaps": [
+        [
+          "建筑"
+        ]
+      ],
+      "score_range": [
+        0,
+        20
+      ],
+      "refuse": true
+    },
+    {
+      "id": "c07",
+      "desc": "散文型 JD（无硬性条件，应判语义空转）",
+      "jd": "data/jd/4-prose.md",
+      "resume": "data/resume.md",
+      "expect_must": [],
+      "expect_plus": [],
+      "expect_gaps": [],
+      "score_range": [
+        0,
+        10
+      ],
+      "refuse": true,
+      "expect_semantic_invalid": true
+    },
+    {
+      "id": "c08",
+      "desc": "散文型 JD × 文科简历（同样应判语义空转）",
+      "jd": "data/jd/4-prose.md",
+      "resume": "data/resume2.md",
+      "expect_must": [],
+      "expect_plus": [],
+      "expect_gaps": [],
+      "score_range": [
+        0,
+        10
+      ],
+      "refuse": true,
+      "expect_semantic_invalid": true
+    },
+    {
+      "id": "c09",
+      "desc": "超长 JD × 数据简历（不能丢埋在噪声里的条件）",
+      "jd": "data/jd/5-long.md",
+      "resume": "data/resume.md",
+      "expect_must": [
+        [
+          "本科",
+          "学历"
+        ],
+        [
+          "SQL"
+        ],
+        [
+          "Python"
+        ]
+      ],
+      "expect_plus": [
+        [
+          "BI",
+          "Tableau"
+        ]
+      ],
+      "expect_gaps": [],
+      "score_range": [
+        60,
+        100
+      ],
+      "refuse": false
+    },
+    {
+      "id": "c10",
+      "desc": "超长 JD × 文科简历（条件齐全但人不匹配，应劝退）",
+      "jd": "data/jd/5-long.md",
+      "resume": "data/resume2.md",
+      "expect_must": [
+        [
+          "SQL"
+        ],
+        [
+          "Python"
+        ]
+      ],
+      "expect_plus": [],
+      "expect_gaps": [
+        [
+          "SQL"
+        ],
+        [
+          "Python"
+        ]
+      ],
+      "score_range": [
+        0,
+        30
+      ],
+      "refuse": true
+    },
+    {
+      "id": "c11",
+      "desc": "高级岗（3 年门槛）× 学生简历（年限应判缺失）",
+      "jd": "data/jd/6-senior.md",
+      "resume": "data/resume.md",
+      "expect_must": [
+        [
+          "本科",
+          "学历"
+        ],
+        [
+          "3 年",
+          "3年",
+          "年限",
+          "年以上"
+        ],
+        [
+          "SQL"
+        ],
+        [
+          "Python"
+        ]
+      ],
+      "expect_plus": [
+        [
+          "团队管理"
+        ],
+        [
+          "A/B",
+          "因果"
+        ],
+        [
+          "数据仓库",
+          "数仓"
+        ]
+      ],
+      "expect_gaps": [
+        [
+          "3 年",
+          "3年",
+          "年限",
+          "经验"
+        ]
+      ],
+      "score_range": [
+        0,
+        45
+      ],
+      "refuse": true
+    }
+  ]
+}
